@@ -1,14 +1,15 @@
-import styles from './Search.module.css';
 import { FormEvent, useState } from 'react';
+import { useRouter } from 'next/router';
 
 export interface ISearch {}
 
 const Search: React.FC<ISearch> = () => {
-  const [searchTerm, setSearchTerm] = useState<string>();
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const router = useRouter();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    alert(searchTerm);
+    router.push(`/results?search=${searchTerm}`);
   };
 
   return (
@@ -17,7 +18,7 @@ const Search: React.FC<ISearch> = () => {
       onSubmit={(e) => handleSubmit(e)}
     >
       <input
-        className="rounded-full border-2 w-5/6 sm:w-96 h-12 px-3"
+        className="rounded-full border-2 w-5/6 sm:w-128 h-12 px-3"
         type="text"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
