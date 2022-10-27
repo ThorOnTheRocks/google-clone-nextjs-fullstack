@@ -1,5 +1,6 @@
 import '../styles/globals.css';
 import * as NextImage from 'next/image';
+import { AuthProvider } from '../state/auth/AuthContext';
 
 const BREAKPOINTS_INT = {
   xs: 375,
@@ -32,6 +33,14 @@ Object.defineProperty(NextImage, 'default', {
   configurable: true,
   value: (props) => <OriginalNextImage {...props} unoptimized />,
 });
+
+export const decorators = [
+  (Story) => (
+    <AuthProvider>
+      <Story />
+    </AuthProvider>
+  ),
+];
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
